@@ -1,0 +1,14 @@
+.card-container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 15px 10px;
+}
+.page-navigation {
+	padding: 10px 0;
+	display: flex;
+	justify-content: center;
+}
+.page-navigation__button {
+	margin: 0 3px;
+}
