@@ -10,7 +10,6 @@ export default function Navigation(props) {
 			but.push(<button key={i} className="page-navigation__button">{i}</button>)
 		}
 		setButtons(but)
-		console.log(props.buttonsCount);
 	},[props.buttonsCount])
 
 	return buttons
