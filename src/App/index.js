@@ -23,7 +23,13 @@ export default function App(props) {
 	useEffect(() => {
 		setCards(makingCards())
 		setCardsCount(cards.length)
-	},[filter])
+
+	},[filter, beer])
+
+	useEffect(() => {
+		setButtonsCount(Math.ceil(cardsCount / countOnPage))
+		console.log(buttonsCount);
+	},[cardsCount, countOnPage])
 
 	function applyFilter(filter) {
 		setFilter(filter)
@@ -41,9 +47,6 @@ export default function App(props) {
 
 	function applycountOnPage(count) {
 		setCountOnPage(count)
-	}
-	function applycardsCount(count) {
-		setCardsCount(count)
 	}
 
 	function makingCards() {
