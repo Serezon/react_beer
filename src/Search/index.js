@@ -50,13 +50,18 @@ export default function Search(props) {
 		timeout = setTimeout(props.options.bind(null, name), 200);
 	}
 
+	function makeCardsCount(e) {
+		let count = e.target.value
+		props.countOnPage(count)
+	}
+
 	return (
 		<div className="search">
 			<div className="search__item">
 				<span>Name</span>
 				<input onChange={makeOptions} type="text" />
 				<span>Count cards on the page</span>
-				<input type="number" min="4" style={{width: '40px'}}/>
+				<input onChange={makeCardsCount} type="number" min="4" style={{width: '40px'}}/>
 			</div>
 			<form name="parametrs">
 				<div className="search__item">

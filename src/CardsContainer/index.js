@@ -3,7 +3,6 @@ import Card from '../Card'
 import './style.css'
 
 export default function CardsContainer(props) {
-
 	function makingCards() {
 		let filter = props.filter
 		let cards = props.beer.slice()
