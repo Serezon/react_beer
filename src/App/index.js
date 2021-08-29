@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Search from '../Search'
 import Card from '../Card'
 import Navigation from '../Navigation'
@@ -7,12 +7,12 @@ import './style.css'
 export default function App(props) {
 	const [beer, setBeer] = useState([])
 	const [filter, setFilter] = useState()
-	const [url, setOptions] = useState('https://api.punkapi.com/v2/beers?per_page=80')
-	const [cards, setCards] = useState(makingCards())
-	const [countOnPage, setCountOnPage] = useState(80)
-	const [cardsCount, setCardsCount] = useState(80)
-	const [pageCount, setPageCount] = useState(1)
-	const [buttonsCount, setButtonsCount] = useState(1)
+	const [url, setUrl] = useState('https://api.punkapi.com/v2/beers?per_page=12')
+	const [cardsCount, setCardsCount] = useState(12)
+	const [cardsOnPage, setCardsOnPage] = useState(12)
+
+	const cards = makingCards()
+	const buttonsCount = Math.ceil(cardsCount / cardsOnPage)
 
 	useEffect(() => {
 		fetch(url)
@@ -21,15 +21,9 @@ export default function App(props) {
 	}, [url])
 
 	useEffect(() => {
-		setCards(makingCards())
+		console.log(cards.length)
 		setCardsCount(cards.length)
-
-	},[filter, beer])
-
-	useEffect(() => {
-		setButtonsCount(Math.ceil(cardsCount / countOnPage))
-		console.log(buttonsCount);
-	},[cardsCount, countOnPage])
+	},[cards.length])
 
 	function applyFilter(filter) {
 		setFilter(filter)
@@ -42,11 +36,11 @@ export default function App(props) {
 		} else {
 			newUrl.searchParams.delete('beer_name')
 		}
-		setOptions(newUrl)
+		setUrl(newUrl)
 	}
 
-	function applycountOnPage(count) {
-		setCountOnPage(count)
+	function applyCountOnPage(count) {
+		setCardsOnPage(count)
 	}
 
 	function makingCards() {
@@ -81,7 +75,7 @@ export default function App(props) {
 
 	return (
 		<div>
-			<Search beer={beer} filter={applyFilter} options={applyOptions} countOnPage={applycountOnPage}/>
+			<Search beer={beer} filter={applyFilter} options={applyOptions} countOnPage={applyCountOnPage}/>
 			<div className="card-container">
 					{cards}
 			</div>
