@@ -53,7 +53,6 @@ export default function Search(props) {
 	function makeCardsCount(e) {
 		let count = e.target.value
 		if (count <= 0) count = 1
-		console.log('COUNT', count);
 		props.countOnPage(count)
 	}
 

@@ -10,6 +10,7 @@ export default function App(props) {
 	const [url, setUrl] = useState('https://api.punkapi.com/v2/beers?per_page=12')
 	const [cardsCount, setCardsCount] = useState(12)
 	const [cardsOnPage, setCardsOnPage] = useState(12)
+	const [pageNUmber, setPageNumber] = useState(1)
 
 	const cards = makingCards()
 	const buttonsCount = Math.ceil(cardsCount / cardsOnPage)
@@ -21,9 +22,9 @@ export default function App(props) {
 	}, [url])
 
 	useEffect(() => {
-		console.log(cards.length)
 		setCardsCount(cards.length)
-	},[cards.length])
+		setPageNumber(1)
+	}, [cards.length])
 
 	function applyFilter(filter) {
 		setFilter(filter)
@@ -41,6 +42,11 @@ export default function App(props) {
 
 	function applyCountOnPage(count) {
 		setCardsOnPage(count)
+		setPageNumber(1)
+	}
+
+	function applyPageNumber(number) {
+		setPageNumber(number)
 	}
 
 	function makingCards() {
@@ -75,12 +81,12 @@ export default function App(props) {
 
 	return (
 		<div>
-			<Search beer={beer} filter={applyFilter} options={applyOptions} countOnPage={applyCountOnPage}/>
+			<Search beer={beer} filter={applyFilter} options={applyOptions} countOnPage={applyCountOnPage} />
 			<div className="card-container">
-					{cards}
+				{cards.slice((pageNUmber - 1) * cardsOnPage, pageNUmber * cardsOnPage)}
 			</div>
 			<div className="page-navigation">
-				<Navigation buttonsCount={buttonsCount} />
+				<Navigation buttonsCount={buttonsCount} pageNumber={applyPageNumber} activeButton={pageNUmber}/>
 			</div>
 		</div>
 	)
