@@ -3,6 +3,7 @@ import './style.css'
 
 
 export default function Card(props) {
+  // тут желательно сделать деструктуризацию props, а то ты это слово раз 10 в коде повторяешь ниже
 	return (
 		<div className="card card__body">
 			<h3 className="card__title">{props.beer.name}</h3>

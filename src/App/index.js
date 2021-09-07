@@ -8,11 +8,13 @@ export default function App(props) {
 	const [beer, setBeer] = useState([])
 	const [filter, setFilter] = useState()
 	const [url, setUrl] = useState('https://api.punkapi.com/v2/beers?per_page=12')
+  // Урл к апи стоит хранить в .env, ну и желательно сам запрос вынести в отдельный файл, чтоб в будущем можно было переиспользовать
 	const [cardsCount, setCardsCount] = useState(12)
 	const [cardsOnPage, setCardsOnPage] = useState(12)
 	const [pageNUmber, setPageNumber] = useState(1)
 
 	const cards = makingCards()
+  // не сильно хорошая использовать функции, которые описаны ниже, приходиться прыгать туда сюда смотреть что они делают
 	const buttonsCount = Math.ceil(cardsCount / cardsOnPage)
 
 	useEffect(() => {
@@ -32,6 +34,7 @@ export default function App(props) {
 
 	function applyOptions(name) {
 		let newUrl = new URL(url)
+    // используй let только если не можешь использовать const
 		if (name) {
 			newUrl.searchParams.set('beer_name', name)
 		} else {
@@ -53,6 +56,7 @@ export default function App(props) {
 		let cards = beer.slice()
 		if (filter) {
 			cards = cards.filter(item => {
+        // тут тоже не знаю зачем везде let, если можно использовать const
 				let id = String(item.id)
 				let abv = String(item.abv)
 				let ibu = String(item.ibu)
